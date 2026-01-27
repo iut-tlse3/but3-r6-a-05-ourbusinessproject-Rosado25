@@ -30,12 +30,14 @@ public class EnterpriseProjectService {
      * newProject
      * @param title
      * @param description
+     * @param enterprise
      * @return project
      */
-    public Project newProject(String title, String description) {
+    public Project newProject(String title, String description, Enterprise enterprise) {
         Project project = new Project();
         project.setTitle(title);
         project.setDescription(description);
+        project.setEnterprise(enterprise);
         this.entityManager.persist(project);
         this.entityManager.flush();
         return project;
