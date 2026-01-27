@@ -1,12 +1,14 @@
 package ourbusinessproject;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EnterpriseProjectService {
 
-    private EntityManager entityManager;
+    @PersistenceContext
+    private final EntityManager entityManager;
 
     /**
      * EnterpriseProjectService
