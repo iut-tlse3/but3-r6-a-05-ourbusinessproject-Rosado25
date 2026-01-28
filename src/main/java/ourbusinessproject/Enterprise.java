@@ -6,6 +6,10 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
 @Entity
 @Table
 public class Enterprise {
@@ -17,6 +21,27 @@ public class Enterprise {
     @Size(min=10) private String description;
     @NotBlank private String contactName;
     @NotBlank @Email private String contactEmail;
+    @OneToMany(mappedBy = "enterprise")
+    private Collection<Project> project;
+
+    /**
+     * getProjects
+     * @return project
+     */
+    public Collection<Project> getProjects() {
+        return project;
+    }
+
+    /**
+     * addProject
+     * @param project
+     */
+    public void addProject(Project project) {
+        if (this.project == null) {
+            this.project = new ArrayList<>();
+        }
+        this.project.add(project);
+    }
 
     public Long getId() {
         return id;
