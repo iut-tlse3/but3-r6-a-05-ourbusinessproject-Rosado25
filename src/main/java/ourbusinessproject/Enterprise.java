@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 
 @Entity
 @Table
@@ -38,7 +39,7 @@ public class Enterprise {
      */
     public void addProject(Project project) {
         if (this.project == null) {
-            this.project = new ArrayList<>();
+            this.project = new HashSet<>();
         }
         this.project.add(project);
     }
