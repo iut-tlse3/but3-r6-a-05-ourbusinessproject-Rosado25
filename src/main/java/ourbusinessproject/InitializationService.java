@@ -25,6 +25,15 @@ public class InitializationService {
      */
     @Transactional
     public void initProjects() {
+
+        /*
+          Grâce à l'annotation @Transactional, Spring exécute toute cette méthode
+          dans une seule transaction de base de données.
+
+          Cela garantit la propriété d'atomicité : soit tous les projets sont créés,
+          soit aucun ne l'est.
+         */
+
         initEnterprise();
         project1E1 = enterpriseProjectService.newProject("p1E1","P1E1 desc",enterprise1);
         project1E2 = enterpriseProjectService.newProject("p1E2","P1E2 desc",enterprise2);
