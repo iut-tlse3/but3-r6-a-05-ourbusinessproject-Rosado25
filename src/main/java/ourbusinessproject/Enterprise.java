@@ -1,90 +1,60 @@
 package ourbusinessproject;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 
+
+@Getter
+@Setter
 @Entity
-@Table
 public class Enterprise {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NotBlank private String name;
-    @Size(min=10) private String description;
-    @NotBlank private String contactName;
-    @NotBlank @Email private String contactEmail;
-    @OneToMany(mappedBy = "enterprise")
-    private Collection<Project> project;
 
     /**
-     * getProjects
-     * @return project
+     * Get and Set the name of the enterprise
      */
-    public Collection<Project> getProjects() {
-        return project;
-    }
+    @NotBlank private String name;
 
     /**
-     * addProject
-     * @param project
+     * Get and Set the description of the enterprise
+     */
+    @Size(min = 10)  private String description;
+
+    /**
+     * Get and Set the contact name of the enterprise
+     */
+    @NotBlank private String contactName;
+
+    /**
+     * Get and Set the contact email of the enterprise
+     */
+    @NotBlank @Email private String contactEmail;
+
+    public Enterprise() {}
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "enterprise")
+    private Collection<Project> projects;
+
+    /**
+     * Add a project to the enterprise's list of projects
+     * @param project the project to add
      */
     public void addProject(Project project) {
-        if (this.project == null) {
-            this.project = new HashSet<>();
+        if(this.projects == null) {
+            this.projects = new ArrayList<>();
         }
-        this.project.add(project);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /**
-     * Set Name
-     * @param name
-     */
-    public void setName(String name){
-        this.name = name;
-    }
-
-    /**
-     * Set Description
-     * @param description
-     */
-    public void setDescription(String description){
-        this.description = description;
-    }
-
-    /**
-     * Set ContactName
-     * @param contactName
-     */
-    public void setContactName(String contactName){
-        this.contactName = contactName;
-    }
-
-    /**
-     * Set ContactEmail
-     * @param contactEmail
-     */
-    public void setContactEmail(String contactEmail){
-        this.contactEmail = contactEmail;
-    }
-
-    public String getName() {
-        return this.name;
+        this.projects.add(project);
     }
 }
