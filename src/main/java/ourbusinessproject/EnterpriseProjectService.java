@@ -80,7 +80,9 @@ public class EnterpriseProjectService {
      * @return the list of all projects
      */
     public List<Project> findAllProjects() {
-        String query="SELECT p FROM Project p ORDER BY title ASC";
+        String query="SELECT p FROM Project p " +
+                "JOIN FETCH p.enterprise " +
+                "ORDER BY p.title ASC";
         TypedQuery<Project> typedQuery=entityManager.createQuery(query, Project.class);
         return typedQuery.getResultList();
     }
